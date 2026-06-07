@@ -1,0 +1,9 @@
+export { achievements } from "@/data/achievements";
+export { aiLabEntries } from "@/data/ai-lab";
+export { certificates } from "@/data/certificates";
+export { deployments } from "@/data/deployments";
+export { experience } from "@/data/experience";
+export { profile } from "@/data/profile";
+export { recruiterSummary } from "@/data/recruiter-summary";
+export { skills } from "@/data/skills";
+export { timeline } from "@/data/timeline";
