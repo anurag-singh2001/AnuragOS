@@ -40,10 +40,10 @@ export const profile: Profile = {
       priority: "secondary",
     },
     {
-      label: "Legacy Portfolio",
+      label: "Deployed OS",
       type: "portfolio",
-      href: "https://anurag-singh2001.github.io/",
-      displayValue: "anurag-singh2001.github.io",
+      href: "https://anurag-os.vercel.app/",
+      displayValue: "anurag-os.vercel.app",
       priority: "secondary",
     },
   ],
