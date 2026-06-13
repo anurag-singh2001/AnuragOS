@@ -140,7 +140,7 @@ export function SystemGuide() {
           animate={{ opacity: 1, x: 0, y: 0 }}
           exit={{ opacity: 0, x: 20, y: -20 }}
           transition={{ type: "spring", stiffness: 300, damping: 25 }}
-          className="fixed right-6 top-10 z-[100] flex w-[380px] flex-col overflow-hidden rounded-xl border border-white/[0.08] bg-[#0a0a0f]/95 shadow-2xl shadow-black/60 backdrop-blur-xl"
+          className="fixed z-[100] flex flex-col overflow-hidden border border-white/[0.08] bg-[#0a0a0f]/95 shadow-2xl shadow-black/60 backdrop-blur-xl w-[calc(100vw-32px)] md:w-[380px] left-4 md:left-auto right-4 md:right-6 top-16 md:top-10 rounded-2xl md:rounded-xl max-h-[80vh] md:max-h-none"
         >
           {/* Header */}
           <div className="flex items-center justify-between border-b border-white/[0.06] bg-white/[0.03] px-4 py-2.5 cursor-default select-none">

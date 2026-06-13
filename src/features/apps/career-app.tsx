@@ -4,9 +4,12 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { timeline } from "@/data/timeline";
 import { experience } from "@/data/experience";
+import { useBreakpoints } from "@/hooks/use-breakpoints";
+import { cn } from "@/lib/utils";
 
 export function CareerApp() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const { isMobile } = useBreakpoints();
   const sorted = [...timeline].sort(
     (a, b) => a.displayPriority - b.displayPriority,
   );
@@ -17,9 +20,14 @@ export function CareerApp() {
     : null;
 
   return (
-    <div className="flex h-full">
+    <div className="flex h-full relative">
       {/* Timeline */}
-      <div className="w-72 shrink-0 overflow-y-auto border-r border-white/[0.06] p-5">
+      <div
+        className={cn(
+          "shrink-0 overflow-y-auto border-r border-white/[0.06] p-5 transition-all",
+          isMobile ? (selectedId ? "hidden" : "w-full border-r-0") : "w-72"
+        )}
+      >
         <h2 className="mb-4 text-sm font-semibold text-white/80">
           Career Timeline
         </h2>
@@ -67,7 +75,12 @@ export function CareerApp() {
       </div>
 
       {/* Detail panel */}
-      <div className="flex-1 overflow-y-auto p-6">
+      <div
+        className={cn(
+          "flex-1 overflow-y-auto p-6 transition-all",
+          isMobile ? (selectedId ? "block w-full" : "hidden") : "block"
+        )}
+      >
         <AnimatePresence mode="wait">
           {selectedEvent ? (
             <motion.div
@@ -78,6 +91,14 @@ export function CareerApp() {
               transition={{ duration: 0.15 }}
               className="space-y-5"
             >
+              {isMobile && (
+                <button
+                  onClick={() => setSelectedId(null)}
+                  className="flex items-center gap-2 text-xs font-medium text-cyan-400 hover:text-cyan-300 transition-colors"
+                >
+                  ← Back to Timeline
+                </button>
+              )}
               <div>
                 <span
                   className={`inline-block rounded-full px-2.5 py-0.5 text-[10px] font-medium ${

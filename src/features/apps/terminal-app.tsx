@@ -497,7 +497,7 @@ drwxr-xr-x  ai-lab/
 
   return (
     <div
-      className="flex h-full flex-col bg-[#050709] font-mono text-sm"
+      className="flex h-full flex-col bg-[#050709] font-mono text-[16px] md:text-sm"
       onClick={() => {
         if (activeGame === "none") inputRef.current?.focus();
       }}
@@ -577,7 +577,7 @@ drwxr-xr-x  ai-lab/
         </div>
       ) : (
         /* Regular Terminal CLI */
-        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4">
+        <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 pb-20 md:pb-4">
           {lines.map((line, i) => (
             <div
               key={i}
@@ -604,7 +604,7 @@ drwxr-xr-x  ai-lab/
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKeyDown}
-              className="flex-1 bg-transparent text-white/90 outline-none caret-cyan-400"
+              className="flex-1 bg-transparent text-white/90 outline-none caret-cyan-400 text-[16px] md:text-sm"
               autoFocus
               spellCheck={false}
               aria-label="Terminal input"

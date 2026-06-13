@@ -3,10 +3,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useOS, APP_REGISTRY } from "@/features/os/window-manager";
+import { useBreakpoints } from "@/hooks/use-breakpoints";
+import { cn } from "@/lib/utils";
 
 export function Dock() {
   const { state, openApp, toggleLaunchpad } = useOS();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const { isMobile } = useBreakpoints();
 
   const dockItems = [
     { id: "launchpad", label: "Launchpad", icon: "🎛️", isLaunchpad: true },
@@ -15,34 +18,41 @@ export function Dock() {
 
   return (
     <nav
-      className="fixed bottom-3 left-1/2 z-40 flex -translate-x-1/2 items-end gap-1 rounded-2xl border border-white/[0.08] bg-[#0c0e1a]/80 px-3 py-2 backdrop-blur-2xl"
+      className={cn(
+        "fixed z-40 flex items-end gap-1 bg-[#0c0e1a]/80 backdrop-blur-2xl transition-all",
+        isMobile
+          ? "bottom-0 left-0 right-0 w-full overflow-x-auto px-4 py-3 border-t border-white/[0.08] no-scrollbar rounded-none justify-start"
+          : "bottom-3 left-1/2 -translate-x-1/2 rounded-2xl border border-white/[0.08] px-3 py-2"
+      )}
       aria-label="Application dock"
     >
       {dockItems.map((item, index) => {
         const isLaunchpad = "isLaunchpad" in item;
         const isRunning = !isLaunchpad && state.windows.some((w) => w.appId === item.id);
         const distance =
-          hoveredIndex !== null ? Math.abs(hoveredIndex - index) : 999;
+          hoveredIndex !== null && !isMobile ? Math.abs(hoveredIndex - index) : 999;
         const scale =
-          hoveredIndex !== null
-            ? distance === 0
-              ? 1.45
-              : distance === 1
-                ? 1.2
-                : distance === 2
-                  ? 1.05
-                  : 1
-            : 1;
+          isMobile
+            ? 1
+            : hoveredIndex !== null
+              ? distance === 0
+                ? 1.45
+                : distance === 1
+                  ? 1.2
+                  : distance === 2
+                    ? 1.05
+                    : 1
+              : 1;
 
         return (
           <div
             key={item.id}
-            className="relative flex flex-col items-center"
-            onMouseEnter={() => setHoveredIndex(index)}
-            onMouseLeave={() => setHoveredIndex(null)}
+            className="relative flex flex-col items-center shrink-0"
+            onMouseEnter={() => !isMobile && setHoveredIndex(index)}
+            onMouseLeave={() => !isMobile && setHoveredIndex(null)}
           >
             {/* Tooltip */}
-            {hoveredIndex === index && (
+            {!isMobile && hoveredIndex === index && (
               <motion.div
                 initial={{ opacity: 0, y: 4 }}
                 animate={{ opacity: 1, y: 0 }}

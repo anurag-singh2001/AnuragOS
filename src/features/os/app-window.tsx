@@ -6,12 +6,65 @@ import { useDraggable } from "@/hooks/use-draggable";
 import type { OSWindow } from "@/features/os/os-types";
 import { cn } from "@/lib/utils";
 
+import { useBreakpoints } from "@/hooks/use-breakpoints";
+
 type AppWindowProps = {
   window: OSWindow;
   children: React.ReactNode;
 };
 
 export function AppWindow({ window: win, children }: AppWindowProps) {
+  const { isMobile } = useBreakpoints();
+
+  if (isMobile) {
+    return <MobileAppSheet window={win}>{children}</MobileAppSheet>;
+  }
+
+  return <DesktopDraggableWindow window={win}>{children}</DesktopDraggableWindow>;
+}
+
+function MobileAppSheet({ window: win, children }: AppWindowProps) {
+  const { closeWindow, state, focusWindow } = useOS();
+  const isActive = state.activeWindowId === win.id;
+
+  if (win.minimized) return null;
+
+  return (
+    <motion.div
+      initial={{ y: "100%", opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: "100%", opacity: 0 }}
+      transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
+      className="fixed inset-0 z-50 flex flex-col bg-[#0a0c16]"
+      style={{ zIndex: win.zIndex }}
+      onPointerDown={() => {
+        if (!isActive) focusWindow(win.id);
+      }}
+    >
+      {/* Mobile Header */}
+      <div className="flex h-14 shrink-0 items-center justify-between border-b border-white/[0.08] bg-[#12141f]/95 px-4">
+        <div className="w-10" /> {/* Spacer */}
+        <span className="text-sm font-semibold text-white/90">
+          {win.title}
+        </span>
+        <button
+          onClick={() => closeWindow(win.id)}
+          className="flex h-11 w-11 items-center justify-end text-white/60 transition-colors hover:text-white"
+          aria-label="Close"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Mobile Content Area */}
+      <div className="flex-1 overflow-auto bg-[#0a0c16]/95">
+        {children}
+      </div>
+    </motion.div>
+  );
+}
+
+function DesktopDraggableWindow({ window: win, children }: AppWindowProps) {
   const { state, closeWindow, minimizeWindow, maximizeWindow, focusWindow, moveWindow } =
     useOS();
 

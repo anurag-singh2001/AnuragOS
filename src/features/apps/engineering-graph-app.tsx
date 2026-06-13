@@ -1,6 +1,8 @@
 "use client";
 
 import { useMemo, useCallback, useState } from "react";
+import { useBreakpoints } from "@/hooks/use-breakpoints";
+import { cn } from "@/lib/utils";
 import {
   ReactFlow,
   Background,
@@ -32,6 +34,7 @@ export function EngineeringGraphApp() {
   // Local state for the app (Node Inspector and Path Highlighting)
   const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
   const [activePath, setActivePath] = useState<ActivePath>("none");
+  const { isMobile } = useBreakpoints();
 
   // Filter nodes and edges based on active path
   const visibleNodesData = useMemo(() => {
@@ -143,7 +146,7 @@ export function EngineeringGraphApp() {
         </ReactFlow>
 
         {/* Path Highlighting Controls */}
-        <div className="absolute top-4 left-4 z-10 flex gap-2 bg-black/50 p-2 rounded border border-white/10 backdrop-blur-sm">
+        <div className="absolute top-4 left-4 right-4 md:right-auto z-10 flex flex-wrap gap-2 bg-black/50 p-2 rounded border border-white/10 backdrop-blur-sm">
           <button 
             onClick={() => setActivePath("none")}
             className={`px-3 py-1.5 text-xs font-semibold rounded ${activePath === "none" ? "bg-white/20 text-white" : "text-white/60 hover:bg-white/10"}`}
@@ -175,10 +178,16 @@ export function EngineeringGraphApp() {
       <AnimatePresence>
         {selectedNodeData && (
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 50 }}
-            className="w-[320px] h-full border-l border-white/10 bg-[#0a0c14] flex flex-col z-20 shrink-0"
+            initial={isMobile ? { opacity: 0, y: "100%" } : { opacity: 0, x: 50 }}
+            animate={isMobile ? { opacity: 1, y: 0 } : { opacity: 1, x: 0 }}
+            exit={isMobile ? { opacity: 0, y: "100%" } : { opacity: 0, x: 50 }}
+            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            className={cn(
+              "flex flex-col z-20 shrink-0 bg-[#0a0c14] border-white/10 shadow-2xl",
+              isMobile 
+                ? "absolute bottom-0 left-0 right-0 h-[50%] border-t rounded-t-2xl shadow-black/80" 
+                : "w-[320px] h-full border-l"
+            )}
           >
             <div className="flex items-center justify-between p-4 border-b border-white/10 bg-white/5">
               <span className="text-sm font-semibold text-white/90">Node Inspector</span>
