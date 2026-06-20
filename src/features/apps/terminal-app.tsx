@@ -412,7 +412,7 @@ drwxr-xr-x  ai-lab/
       setHistory((prev) => [cmd, ...prev].slice(0, 50));
       setHistoryIndex(-1);
     },
-    [lines, activeQuiz, quizIndex, quizScore, setMatrixColor, setWallpaper],
+    [lines, activeQuiz, quizIndex, quizScore, setMatrixColor, setWallpaper, openApp],
   );
 
   function handleKeyDown(e: React.KeyboardEvent) {

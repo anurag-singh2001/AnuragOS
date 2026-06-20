@@ -79,6 +79,7 @@ export function BootSequence() {
       clearInterval(progressInterval);
       clearTimeout(doneTimeout);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.bootPhase, completeBoot]);
 
   if (state.bootPhase === "ready") return null;

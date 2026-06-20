@@ -7,15 +7,6 @@ import { useOS } from "@/features/os/window-manager";
 import { cn } from "@/lib/utils";
 import { buildLogEntries, vNextData, JourneyStage } from "@/data/build-log";
 
-// Predefined order of stages for rendering (newest first)
-const STAGE_ORDER: JourneyStage[] = [
-  "AI Systems Builder",
-  "Enterprise Systems Builder",
-  "Software Engineer",
-  "C-DAC",
-  "UPES Student"
-];
-
 // Mapping for quick timeline strip
 const TIMELINE_STRIP = [
   { year: "2026", label: "AI Systems", stage: "AI Systems Builder" },
@@ -93,7 +84,7 @@ export function BuildLogApp() {
         )}>
           {/* vNext Link */}
           <button
-            onClick={() => setActiveStage("vNext" as any)}
+            onClick={() => setActiveStage("vNext")}
             className={cn(
               "text-left group transition-all",
               isMobile ? "shrink-0 border-r border-white/10 pr-4" : "border-b border-white/10 pb-4"
