@@ -8,6 +8,7 @@ const desktopShortcuts = [
   { id: "career", label: "Career", icon: "💼", appId: "career" },
   { id: "ai-lab", label: "AI Lab", icon: "🔬", appId: "ai-lab" },
   { id: "engineering-graph", label: "Engineering Graph", icon: "🕸️", appId: "engineering-graph" },
+  { id: "build-log", label: "Build Log", icon: "📖", appId: "build-log" },
   { id: "resume", label: "Resume", icon: "📄", appId: "resume" },
   { id: "terminal", label: "Terminal", icon: "⌨️", appId: "terminal" },
   { id: "contact", label: "Contact", icon: "✉️", appId: "contact" },

@@ -48,7 +48,7 @@ LinkedIn: linkedin.com/in/anurag-singh
 Twitter/X: twitter.com/anurag_singh`;
 
 export function TerminalApp() {
-  const { state, setMatrixColor, setWallpaper } = useOS();
+  const { state, setMatrixColor, setWallpaper, openApp } = useOS();
   const [lines, setLines] = useState<TerminalLine[]>([
     { type: "system", content: WELCOME_MESSAGE },
   ]);
@@ -166,6 +166,7 @@ export function TerminalApp() {
   fortune     Get a developer fortune
   easteregg   Discover a hidden journey detail
   achievement Show a professional milestone
+  buildlog    View my evolutionary engineering journey
   origin      View my chronological journey
   now         See my current focus
   why         Why this OS exists
@@ -299,6 +300,15 @@ Status: ${profile.availability ?? "Available"}`,
             type: "output", 
             content: `\n🏆 ${randomAchievement.title}\n   Date: ${randomAchievement.date}\n   ${randomAchievement.description}\n` 
           });
+          break;
+        }
+
+        case "buildlog": {
+          newLines.push({
+            type: "system",
+            content: `Opening Build Log...\n`
+          });
+          setTimeout(() => openApp("build-log"), 400);
           break;
         }
 

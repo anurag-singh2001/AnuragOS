@@ -24,6 +24,7 @@ import { ContactApp } from "@/features/apps/contact-app";
 import { TerminalApp } from "@/features/apps/terminal-app";
 import { SettingsApp } from "@/features/apps/settings-app";
 import { EngineeringGraphApp } from "@/features/apps/engineering-graph-app";
+import { BuildLogApp } from "@/features/apps/build-log-app";
 
 const APP_COMPONENTS: Record<string, React.ComponentType> = {
   deployments: DeploymentsApp,
@@ -34,6 +35,7 @@ const APP_COMPONENTS: Record<string, React.ComponentType> = {
   contact: ContactApp,
   terminal: TerminalApp,
   settings: SettingsApp,
+  "build-log": BuildLogApp,
 };
 
 export function OSDesktop() {

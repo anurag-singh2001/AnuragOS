@@ -29,6 +29,13 @@ import type {
 
 export const APP_REGISTRY: AppDefinition[] = [
   {
+    id: "build-log",
+    label: "Build Log",
+    icon: "📖",
+    defaultSize: { width: 960, height: 640 },
+    minSize: { width: 640, height: 480 },
+  },
+  {
     id: "deployments",
     label: "Deployments",
     icon: "🚀",

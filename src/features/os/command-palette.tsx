@@ -22,6 +22,7 @@ export function CommandPalette() {
   const commands = useMemo<CommandItem[]>(
     () => [
       // Apps
+      { id: "open-build-log", label: "Open Build Log", category: "Apps", action: () => { openApp("build-log"); toggleCommandPalette(); } },
       { id: "open-deployments", label: "Open Deployments", category: "Apps", action: () => { openApp("deployments"); toggleCommandPalette(); } },
       { id: "open-career", label: "Open Career Journey", category: "Apps", action: () => { openApp("career"); toggleCommandPalette(); } },
       { id: "open-ai-lab", label: "Open AI Lab", category: "Apps", action: () => { openApp("ai-lab"); toggleCommandPalette(); } },
