@@ -35,7 +35,7 @@ function MobileAppSheet({ window: win, children }: AppWindowProps) {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: "100%", opacity: 0 }}
       transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-      className="fixed inset-0 z-50 flex flex-col bg-[#0a0c16]"
+      className="fixed inset-x-0 bottom-0 top-7 z-[60] flex flex-col bg-[#0a0c16]"
       style={{ zIndex: win.zIndex }}
       onPointerDown={() => {
         if (!isActive) focusWindow(win.id);
